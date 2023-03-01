@@ -40,7 +40,7 @@ namespace API.Controllers
                     DisplayName = user.DisplayName,
                     Image = null,
                     Token = _tokenServices.CreateToken(user),
-                    UserName = user.UserName
+                    Username = user.UserName
                 };
             }
             return Unauthorized();
@@ -52,12 +52,15 @@ namespace API.Controllers
         {
             if(await _userManager.Users.AnyAsync(x => x.UserName == registerDto.UserName))
             {
-                return BadRequest("User name already taken");
+                ModelState.AddModelError("email", "Email taken");
+                return ValidationProblem();
             }
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                return BadRequest("Email already taken");
-            }
+                ModelState.AddModelError("username", "username taken");
+
+                return ValidationProblem();
+             }
 
             var user = new AppUser
             {
@@ -88,7 +91,7 @@ namespace API.Controllers
         {
             return new UserDto
             {
-                UserName = user.UserName,
+                Username = user.UserName,
                 Image = null,
                 Token = _tokenServices.CreateToken(user),
                 DisplayName = user.DisplayName,

@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Application.Interfaces;
+using Infrastructure.Security;
+using System.Text.Json.Serialization;
 
 namespace API.Extensions
 {
@@ -30,6 +33,13 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssemblyContaining<Create>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserAccessor, UserAccessor>();
+            /*services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });*/
             return services;
         }
     }
