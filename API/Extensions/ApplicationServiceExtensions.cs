@@ -7,7 +7,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Application.Interfaces;
 using Infrastructure.Security;
-using System.Text.Json.Serialization;
+using Infrastructure.Photos;
 
 namespace API.Extensions
 {
@@ -21,12 +21,14 @@ namespace API.Extensions
             services.AddSwaggerGen();
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             });
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy => {
-                    policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+                    policy.AllowAnyMethod().AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:3000");
                 });
             });
             services.AddMediatR(typeof(List.Handler));
@@ -35,6 +37,10 @@ namespace API.Extensions
             services.AddValidatorsFromAssemblyContaining<Create>();
             services.AddHttpContextAccessor();
             services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+            services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
+            services.AddSignalR();
+
             /*services.AddControllers()
             .AddJsonOptions(options =>
             {
