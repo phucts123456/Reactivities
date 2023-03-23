@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push 37180/reactivities-be'
+        sh 'docker push 37180/reactivities-be:${BUILD_NUMBER}'
       }
     }  
     stage('Pull and Run Image') {
