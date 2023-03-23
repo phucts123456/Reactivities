@@ -43,7 +43,3 @@ pipeline {
     }
   }
 }
-
-37180
-/
-reactivities-be
