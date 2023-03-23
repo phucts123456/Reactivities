@@ -28,7 +28,8 @@ namespace API.Extensions
                 opt.AddPolicy("CorsPolicy", policy => {
                     policy.AllowAnyMethod().AllowAnyHeader()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:3000");
+                    .WithOrigins("http://localhost:3000")
+                    .WithOrigins("http://client.hoquangphuc.website/");
                 });
             });
             services.AddMediatR(typeof(List.Handler));
