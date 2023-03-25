@@ -29,7 +29,7 @@ namespace API.Extensions
                     policy.AllowAnyMethod().AllowAnyHeader()
                     .AllowCredentials()
                     .WithOrigins("http://localhost:3000")
-                    .WithOrigins("http://client.hoquangphuc.website");
+                    .WithOrigins("https://client.hoquangphuc.website");
                 });
             });
             services.AddMediatR(typeof(List.Handler));
