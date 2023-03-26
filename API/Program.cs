@@ -38,18 +38,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.Use(async (context, next) =>
-{
-    //context.Response.Headers.Add("Content-Security-Policy", "{POLICY STRING}");
-    context.Response.Cookies.Append("JSESSIONID", Guid.NewGuid().ToString(), new
-        CookieOptions()
-    {
-        Secure = true,
-        HttpOnly = true,
-        SameSite = SameSiteMode.Strict
-    });
-    await next();
-});
 app.MapHub<ChatHub>("/chat");
 
 using var scope = app.Services.CreateScope();

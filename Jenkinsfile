@@ -35,7 +35,7 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -l phuchoquang ${REACTIVITIES_SERVER} docker rm --force api'
                 sh 'ssh -o StrictHostKeyChecking=no -l phuchoquang ${REACTIVITIES_SERVER} docker image rm --force 37180/reactivities-be:${BUILD_NUMBER}'
                  sh 'ssh -o StrictHostKeyChecking=no -l phuchoquang ${REACTIVITIES_SERVER} docker pull 37180/reactivities-be:${BUILD_NUMBER}'
-                 sh 'ssh -o StrictHostKeyChecking=no -l phuchoquang ${REACTIVITIES_SERVER} docker run -p 8000:80 -d --rm --name api -e router.sticky_session_cookie_names=JSESSIONID --network reactivities 37180/reactivities-be:${BUILD_NUMBER}'
+                 sh 'ssh -o StrictHostKeyChecking=no -l phuchoquang ${REACTIVITIES_SERVER} docker run -p 8000:80 -d --rm --name api --network reactivities 37180/reactivities-be:${BUILD_NUMBER}'
                 
             }
         }
