@@ -20,3 +20,4 @@ services:
     volumes:
       - ./SQL/:/var/lib/postgresql/data
       #dsafsfasdf
+      #abc
