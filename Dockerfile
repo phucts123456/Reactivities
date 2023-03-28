@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /app
 
 #copy .csproj and resotre as distinct layers
+#copy .csproj and resotre as distinct layers
 COPY "Reactivities.sln" "Reactivities.sln"
 COPY "API/API.csproj" "API/API.csproj"
 COPY "Application/Application.csproj" "Application/Application.csproj"
