@@ -19,3 +19,4 @@ services:
       - 5432:5432
     volumes:
       - ./SQL/:/var/lib/postgresql/data
+      #dsafsfasdf
